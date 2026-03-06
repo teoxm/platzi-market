@@ -14,6 +14,22 @@ public class ComprasProducto {
     @Column(name = "total", nullable = false)
     private BigDecimal total;
 
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
     @Column(name = "estado", nullable = false)
     private int estado;
 
