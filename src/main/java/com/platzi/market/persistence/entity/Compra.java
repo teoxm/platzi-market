@@ -6,20 +6,26 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "compras")
+@Table(name = "comprasm")
 public class Compra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_compra")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_COMPRASM")
+    @SequenceGenerator(
+            name = "SEQ_COMPRASM",
+            sequenceName = "SEQ_COMPRASM",
+            allocationSize = 1
+    )
+    @Column(name = "idm_compra")
     private Integer idCompra;
 
-    @Column(name = "id_cliente")
+    @Column(name = "id_cliente",nullable = false)
     private Integer idCliente;
 
+    @Column(nullable = false)
     private LocalDateTime fecha;
 
-    @Column(name="medio_pago")
+    @Column(name="medio_pago", columnDefinition = "CHAR(1)", nullable = false)
     private String medioPago;
 
     private String comentario;
@@ -32,7 +38,7 @@ public class Compra {
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "compra")
+    @OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
     private List<ComprasProducto> productos;
 
     public Integer getIdCompra() {
